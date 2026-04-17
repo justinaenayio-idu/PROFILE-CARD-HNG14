@@ -1,0 +1,322 @@
+/* ================================================================
+   PROFILE CARD — profile.css
+   Theme  : Warm cream · deep forest green accent
+   Fonts  : Cormorant Garamond (display) · DM Sans (body)
+   Layout : Avatar left + content right (desktop) → stacked (mobile)
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --page-bg     : #f5f0e8;
+  --card-bg     : #fdfaf4;
+  --card-border : rgba(60, 50, 30, 0.10);
+  --card-shadow : rgba(60, 50, 30, 0.08);
+
+  --ink-1       : #1e1a12;   /* primary   — 16.8:1 on card bg */
+  --ink-2       : #4a4334;   /* secondary —  8.2:1 */
+  --ink-3       : #7a7060;   /* muted     —  4.6:1 */
+
+  --green       : #2d5a3d;   /* accent — deep forest */
+  --green-d     : rgba(45, 90, 61, 0.10);
+  --green-b     : rgba(45, 90, 61, 0.25);
+
+  --amber       : #b87333;
+  --amber-d     : rgba(184, 115, 51, 0.10);
+  --amber-b     : rgba(184, 115, 51, 0.25);
+
+  --red-d       : rgba(160, 50, 50, 0.09);
+  --red-b       : rgba(160, 50, 50, 0.22);
+  --red-text    : #8b2020;
+
+  --r-sm  : 6px;
+  --r-md  : 12px;
+  --r-lg  : 18px;
+  --r-xl  : 999px;
+  --ease  : 0.18s ease;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+html, body { min-height: 100vh; }
+
+body {
+  font-family : 'DM Sans', system-ui, sans-serif;
+  background  : var(--page-bg);
+  color       : var(--ink-1);
+  font-size   : 15px;
+  line-height : 1.6;
+
+  /* Subtle dot grid on page bg */
+  background-image  : radial-gradient(rgba(60,50,30,.08) 1px, transparent 1px);
+  background-size   : 20px 20px;
+}
+
+/* ── Page centring ──────────────────────────────────────────── */
+.page {
+  min-height      : 100vh;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  padding         : 2rem 1rem;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.profile-card {
+  background    : var(--card-bg);
+  border        : 1px solid var(--card-border);
+  border-radius : var(--r-lg);
+  box-shadow    :
+    0 1px 3px  var(--card-shadow),
+    0 8px 32px var(--card-shadow);
+  width         : 100%;
+  max-width     : 720px;
+  padding       : 2rem;
+  display       : grid;
+  grid-template-columns : 160px 1fr;
+  gap           : 2rem;
+  animation     : cardIn .3s cubic-bezier(.22,.68,0,1.1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(10px) scale(.99); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+}
+
+/* ── Left column ────────────────────────────────────────────── */
+.profile-left {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  gap            : 1.25rem;
+}
+
+/* Avatar figure */
+.avatar-figure {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  gap            : 6px;
+}
+
+.avatar-img {
+  width         : 120px;
+  height        : 120px;
+  border-radius : 50%;
+  border        : 3px solid var(--green);
+  object-fit    : cover;
+  display       : block;
+  background    : var(--green-d);
+  transition    : border-color var(--ease), transform var(--ease);
+}
+
+.avatar-img:hover { transform: scale(1.03); }
+
+.avatar-caption {
+  font-size   : 12px;
+  font-weight : 600;
+  color       : var(--ink-3);
+  text-align  : center;
+  letter-spacing: .04em;
+}
+
+/* Epoch time block */
+.time-block {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  gap            : 3px;
+  background     : var(--green-d);
+  border         : 1px solid var(--green-b);
+  border-radius  : var(--r-md);
+  padding        : .6rem .8rem;
+  width          : 100%;
+  text-align     : center;
+}
+
+.time-label {
+  font-size      : 9px;
+  font-weight    : 600;
+  text-transform : uppercase;
+  letter-spacing : .08em;
+  color          : var(--green);
+}
+
+.time-value {
+  font-family    : 'DM Sans', monospace;
+  font-size      : 11px;
+  font-weight    : 600;
+  color          : var(--ink-1);
+  word-break     : break-all;
+  line-height    : 1.3;
+}
+
+.time-unit {
+  font-size  : 9px;
+  color      : var(--ink-3);
+  font-weight: 500;
+}
+
+/* ── Right column ───────────────────────────────────────────── */
+.profile-right {
+  display        : flex;
+  flex-direction : column;
+  gap            : 1.25rem;
+  min-width      : 0;
+}
+
+/* Header: name + bio */
+.profile-header { display: flex; flex-direction: column; gap: 6px; }
+
+.profile-name {
+  font-family : 'Cormorant Garamond', Georgia, serif;
+  font-size   : 26px;
+  font-weight : 700;
+  color       : var(--ink-1);
+  line-height : 1.2;
+  letter-spacing: -.01em;
+}
+
+.profile-bio {
+  font-size   : 14px;
+  color       : var(--ink-2);
+  line-height : 1.7;
+}
+
+/* Divider between sections */
+.profile-right > * + * {
+  padding-top : 1rem;
+  border-top  : 1px solid var(--card-border);
+}
+
+/* ── Social links ───────────────────────────────────────────── */
+.social-links {
+  list-style : none;
+  display    : flex;
+  flex-wrap  : wrap;
+  gap        : 8px;
+}
+
+.social-link {
+  display       : inline-flex;
+  align-items   : center;
+  gap           : 6px;
+  padding       : 6px 14px;
+  border-radius : var(--r-xl);
+  border        : 1px solid var(--card-border);
+  background    : transparent;
+  font-family   : 'DM Sans', sans-serif;
+  font-size     : 13px;
+  font-weight   : 500;
+  color         : var(--ink-2);
+  text-decoration: none;
+  transition    : background var(--ease), border-color var(--ease),
+                  color var(--ease), transform .1s;
+}
+
+.social-link:hover {
+  background   : var(--green-d);
+  border-color : var(--green-b);
+  color        : var(--green);
+  transform    : translateY(-1px);
+}
+
+.social-link:focus-visible {
+  outline        : 2px solid var(--green);
+  outline-offset : 3px;
+  border-radius  : var(--r-xl);
+}
+
+.social-icon { flex-shrink: 0; }
+
+/* ── Hobbies + Dislikes sections ────────────────────────────── */
+.list-section {
+  display        : flex;
+  flex-direction : column;
+  gap            : 8px;
+}
+
+.list-heading {
+  font-family    : 'Cormorant Garamond', Georgia, serif;
+  font-size      : 14px;
+  font-weight    : 600;
+  text-transform : uppercase;
+  letter-spacing : .1em;
+  color          : var(--ink-3);
+}
+
+.tag-list {
+  list-style : none;
+  display    : flex;
+  flex-wrap  : wrap;
+  gap        : 6px;
+}
+
+.tag {
+  font-size     : 12.5px;
+  font-weight   : 500;
+  padding       : 4px 12px;
+  border-radius : var(--r-xl);
+  border        : 1px solid transparent;
+}
+
+.tag-hobby {
+  background   : var(--green-d);
+  color        : var(--green);
+  border-color : var(--green-b);
+}
+
+.tag-dislike {
+  background   : var(--red-d);
+  color        : var(--red-text);
+  border-color : var(--red-b);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+/* Desktop — already two-column by default */
+@media (min-width: 769px) {
+  .profile-card { max-width: 720px; }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .profile-card {
+    grid-template-columns : 140px 1fr;
+    gap                   : 1.5rem;
+    padding               : 1.5rem;
+  }
+  .avatar-img  { width: 100px; height: 100px; }
+  .profile-name{ font-size: 22px; }
+}
+
+/* Mobile — stack vertically */
+@media (max-width: 520px) {
+  .profile-card {
+    grid-template-columns : 1fr;
+    padding               : 1.25rem;
+    gap                   : 1.25rem;
+  }
+
+  .profile-left {
+    flex-direction : row;
+    align-items    : center;
+    gap            : 1rem;
+  }
+
+  .avatar-figure { flex-direction: row; align-items: center; gap: 10px; }
+  .avatar-img    { width: 72px; height: 72px; }
+
+  .time-block    { width: auto; flex: 1; }
+  .profile-name  { font-size: 20px; }
+}
+
+/* Very small */
+@media (max-width: 360px) {
+  .profile-left  { flex-direction: column; }
+  .time-block    { width: 100%; }
+  .profile-card  { padding: 1rem; }
+}
